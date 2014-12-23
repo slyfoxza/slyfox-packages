@@ -1,0 +1,38 @@
+<link rel="import" href="../../bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<polymer-element name="repo-page" attributes="page">
+<template>
+<h2>{{page.name}}</h2>
+<h3>Configuration</h3>
+<pre><code>cat &lt;&lt;REPO &gt;/etc/yum.repos.d/slyfox-packages.repo
+[slyfox-packages]
+name=slyfox.za.net Package Repository
+baseurl=http://packages.slyfox.za.net/{{page.prefix}}
+enabled=1
+REPO</code></pre>
+<h3>Packages</h3>
+<template repeat="{{packages}}">
+<paper-item class="repo"><a href="http://packages.slyfox.za.net/{{url}}">{{name}}</a></paper-item>
+</template>
+<core-ajax url="http://packages.slyfox.za.net.s3.amazonaws.com/"
+	params="{&quot;delimiter&quot;:&quot;/&quot;,&quot;prefix&quot;:&quot;{{page.prefix}}&quot;}"
+	handleAs="xml" auto on-core-response="{{onAjaxResponse}}"></core-ajax>
+</template>
+<script>
+Polymer({
+	created:function(){
+		this.page={};
+		this.packages=[];
+	},
+	onAjaxResponse:function(e,d){
+		var c=d.response.querySelectorAll('ListBucketResult>Contents');
+		for(var i=0;i<c.length;++i){
+			var e=c[i];
+			var k=e.getElementsByTagName('Key')[0].textContent;
+			if(k.substr(-4)!=='.rpm')continue;
+			this.packages.push({name:k.substr(this.page.prefix.length),url:k});
+		}
+	}
+});
+</script>
+</polymer-element>

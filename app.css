@@ -1,0 +1,14 @@
+body{color:#212121;font-size:13px;font-family:Roboto,sans-serif}
+body/deep/p{letter-spacing:0.1px;line-height:24px;max-width:480px}
+body/deep/core-toolbar{background:#03A9F4}
+h1{font-weight:500;font-size:20px}
+body/deep/h2{color:#03A9F4;font-weight:normal;font-size:34px}
+body/deep/h3{color:#03A9F4;font-weight:normal;font-size:24px}
+core-menu{margin:16px 0}
+core-menu paper-item{font-weight:500;font-size:14px}
+core-menu a{color:#212121;text-decoration:none}
+core-menu .core-selected a{color:#03A9F4}
+core-animated-pages{background:#FFF}
+core-animated-pages section{padding:0 24px}
+body/deep/paper-item.repo{font-size:16px}
+body/deep/paper-item.repo a{color:#212121;text-decoration:none}

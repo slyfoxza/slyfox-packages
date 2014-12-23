@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>slyfox.za.net Package Repository</title>
+	<script src="webcomponents.min.js"></script>
+	<link rel="import" href="components.html">
+	<link rel="stylesheet" href="app.css">
+</head>
+<body fullbleed unresolved>
+	<template id="t" is="auto-binding">
+		<flatiron-director route="{{route}}" autohash></flatiron-director>
+		<core-scaffold>
+			<core-header-panel navigation flex mode="seamed">
+				<core-toolbar></core-toolbar>
+				<core-menu selected="{{route}}" valueattr="hash">
+					<template repeat="{{pages}}">
+						<paper-item hash="{{hash}}" noink><a href="#{{hash}}">{{name}}</a></paper-item>
+					</template>
+				</core-menu>
+			</core-header-panel>
+			<h1 tool>slyfox.za.net Package Repository</h1>
+			<core-animated-pages fit selected="{{route}}" valueattr="hash">
+				<section hash="overview" layout vertical>
+					<h2>Overview</h2>
+					<p>This site stores packages built by <a href="http://slyfox.za.net/">me</a>. View the available
+					packages for each operating system or Linux distribution using the links in the navigation menu.</p>
+				</section>
+				<template repeat="{{page in pages|repos}}"><section hash="{{page.hash}}" layout vertical>
+					<repo-page page="{{page}}"></repo-page>
+				</section></template>
+			</core-animated-pages>
+		</core-scaffold>
+	</template>
+	<script src="app.js"></script>
+</body>
+</html>
